@@ -1,5 +1,7 @@
 package me.nijraj.expesnses.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,11 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import me.nijraj.expesnses.R;
 import me.nijraj.expesnses.fragments.FragmentAddExpense;
 import me.nijraj.expesnses.fragments.FragmentExpenses;
 import me.nijraj.expesnses.models.Expense;
+import me.nijraj.expesnses.models.Person;
 
 /**
  * Created by buddha on 12/15/17.
@@ -68,31 +72,77 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener{
         TextView name, amount;
         Button buttonLend, buttonBorrow, buttonView;
+        Person person;
+        private PersonsAdapter adapter;
 
-        ViewHolder(final View itemView) {
+        ViewHolder(final View itemView, PersonsAdapter adapter) {
             super(itemView);
+            this.adapter = adapter;
             name = itemView.findViewById(R.id.textView_name);
             amount = itemView.findViewById(R.id.textView_amount);
             buttonLend = itemView.findViewById(R.id.button_lend);
             buttonBorrow = itemView.findViewById(R.id.button_borrow);
             buttonView = itemView.findViewById(R.id.button_view);
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            itemView.setOnLongClickListener(this);
+            buttonView.setOnClickListener(this);
+        }
+
+        void setPerson(Person person) {
+            this.person = person;
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.button_view:
+                    FragmentExpenses expenses = new FragmentExpenses();
+                    Bundle args = new Bundle();
+                    args.putLong("id", adapter.data.get(getAdapterPosition()).getId());
+                    expenses.setArguments(args);
+                    FragmentTransaction fragmentTransaction = adapter.fragmentManager.beginTransaction();
+                    fragmentTransaction
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, expenses)
+                            .addToBackStack("add_expense")
+                            .commit();
+                    break;
+            }
+        }
+
+        @Override
+        public boolean onLongClick(final View view) {
+            CharSequence[] menuItems = new CharSequence[] { "Delete" };
+            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+            builder.setTitle("Choose an action");
+            builder.setItems(menuItems, new DialogInterface.OnClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
-                    Toast.makeText(itemView.getContext(), getAdapterPosition() + "", Toast.LENGTH_SHORT).show();
-                    return false;
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case 0:
+                            me.nijraj.expesnses.models.Person p = me.nijraj.expesnses.models.Person.findById(me.nijraj.expesnses.models.Person.class, person.getId());
+                            p.delete();
+                            adapter.data.remove(getAdapterPosition());
+                            adapter.notifyItemRemoved(getAdapterPosition());
+                            break;
+                    }
                 }
             });
+            builder.show();
+            return false;
+        }
+
+        public Person getPerson() {
+            return person;
         }
     }
 
     @Override
     public PersonsAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item_person, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, this);
     }
 
     @Override
@@ -110,14 +160,8 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
                 openAddExpense(position, Expense.TYPE.BORROWED);
             }
         });
-        
-        holder.buttonView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openExpenses(position);
-            }
-        });
 
+        holder.setPerson(data.get(position));
         holder.name.setText(data.get(position).getName());
         double amount = data.get(position).getAmount();
         holder.amount.setText("₹" + Math.abs(amount));
@@ -130,16 +174,6 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
     }
 
     private void openExpenses(int position) {
-        FragmentExpenses expenses = new FragmentExpenses();
-        Bundle args = new Bundle();
-        args.putLong("id", data.get(position).getId());
-        expenses.setArguments(args);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment_container, expenses)
-                .addToBackStack("add_expense")
-                .commit();
     }
 
     private void openAddExpense(int position, Expense.TYPE type) {

@@ -54,10 +54,6 @@ public class FragmentPeople extends Fragment {
             }
         });
 
-        final CharSequence[] menuItems = new CharSequence[] { "Delete" };
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Choose an action");
-
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_person);
         recyclerView.setNestedScrollingEnabled(false);
         PersonsAdapter adapter = new PersonsAdapter(getFragmentManager(), Person.loadPeople(false));

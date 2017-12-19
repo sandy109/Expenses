@@ -88,6 +88,8 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
             buttonView = itemView.findViewById(R.id.button_view);
             itemView.setOnLongClickListener(this);
             buttonView.setOnClickListener(this);
+            buttonBorrow.setOnClickListener(this);
+            buttonLend.setOnClickListener(this);
         }
 
         void setPerson(Person person) {
@@ -96,6 +98,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
 
         @Override
         public void onClick(View view) {
+            Expense.TYPE type = null;
             switch (view.getId()){
                 case R.id.button_view:
                     FragmentExpenses expenses = new FragmentExpenses();
@@ -106,6 +109,22 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
                     fragmentTransaction
                             .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                             .replace(R.id.fragment_container, expenses)
+                            .addToBackStack("add_expense")
+                            .commit();
+                    break;
+                case R.id.button_borrow:
+                    type = Expense.TYPE.BORROWED;
+                case R.id.button_lend:
+                    if(type == null)
+                        type = Expense.TYPE.LENT;
+                    FragmentAddExpense addExpense = new FragmentAddExpense();
+                    Bundle args2 = new Bundle();
+                    args2.putLong("person", adapter.data.get(getAdapterPosition()).getId());
+                    args2.putSerializable("type", type);
+                    addExpense.setArguments(args2);
+                    adapter.fragmentManager.beginTransaction()
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, addExpense)
                             .addToBackStack("add_expense")
                             .commit();
                     break;
@@ -147,20 +166,6 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.buttonLend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openAddExpense(position, Expense.TYPE.LENT);
-            }
-        });
-
-        holder.buttonBorrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openAddExpense(position, Expense.TYPE.BORROWED);
-            }
-        });
-
         holder.setPerson(data.get(position));
         holder.name.setText(data.get(position).getName());
         double amount = data.get(position).getAmount();
@@ -171,23 +176,6 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
             holder.amount.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorGreen));
         else
             holder.amount.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRed));
-    }
-
-    private void openExpenses(int position) {
-    }
-
-    private void openAddExpense(int position, Expense.TYPE type) {
-        FragmentAddExpense addExpense = new FragmentAddExpense();
-        Bundle args = new Bundle();
-        args.putLong("person", data.get(position).getId());
-        args.putSerializable("type", type);
-        addExpense.setArguments(args);
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .replace(R.id.fragment_container, addExpense)
-                .addToBackStack("add_expense")
-                .commit();
     }
 
     @Override

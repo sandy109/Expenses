@@ -98,6 +98,17 @@ public class Expense extends SugarRecord<Expense> {
         return amount;
     }
 
+    public static List<Expense> getAllOfType(TYPE type){
+        Iterator<Expense> e = Expense.findAll(Expense.class);
+        List<Expense> expenses = new ArrayList<>();
+        while (e.hasNext()){
+            Expense exp = e.next();
+            if(exp.getType() == type)
+                expenses.add(exp);
+        }
+        return expenses;
+    }
+
     public static List<Expense> getAllOfPerson(Person p){
         List<Expense> expenses = Expense.find(Expense.class, "person = ?", p.getId().toString());
         expenses.sort(new Comparator<Expense>() {

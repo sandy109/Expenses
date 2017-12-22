@@ -39,11 +39,24 @@ public class FragmentExpenses extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         long personId = getArguments().getLong("id");
+        Expense.TYPE type = (Expense.TYPE) getArguments().getSerializable("type");
         Person p = Person.findById(Person.class, personId);
-        getActivity().setTitle("Transactions with " + p.getName());
         DividerItemDecoration decoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(decoration);
-        recyclerView.setAdapter(new ExpensesAdapter(Expense.getAllOfPerson(p)));
+        if(p != null) {
+            getActivity().setTitle("Transactions with " + p.getName());
+            recyclerView.setAdapter(new ExpensesAdapter(Expense.getAllOfPerson(p)));
+        }else if(type != null){
+            switch (type){
+                case SPENT:
+                    getActivity().setTitle("Spendings");
+                    break;
+                case ADDED:
+                    getActivity().setTitle("Received");
+                    break;
+            }
+            recyclerView.setAdapter(new ExpensesAdapter(Expense.getAllOfType(type)));
+        }
         return view;
     }
 }

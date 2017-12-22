@@ -63,8 +63,15 @@ public class FragmentAddExpense extends Fragment {
             case BORROWED:
                 detail += "Borrow from ";
                 break;
+            case SPENT:
+                detail += "Spend";
+                break;
+            case ADDED:
+                detail += "Receive";
+                break;
         }
-        detail += person.getName();
+        if(person != null)
+            detail += person.getName();
         return detail;
     }
 
@@ -85,8 +92,11 @@ public class FragmentAddExpense extends Fragment {
                 Toast.makeText(getContext(), "Enter some description", Toast.LENGTH_SHORT).show();
                 return;
             }
-            Log.d("XXXXXX", "person id is " + person.getId());
-            Expense expense = new Expense(amount, person, type, description, timestamp);
+            Expense expense = null;
+            if(person != null)
+                expense = new Expense(amount, person, type, description, timestamp);
+            else
+                expense = new Expense(amount, type, description, timestamp);
             expense.save();
             editTextDescription.clearFocus();
             editTextAmount.clearFocus();

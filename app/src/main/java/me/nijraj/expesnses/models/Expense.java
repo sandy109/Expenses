@@ -3,6 +3,7 @@ package me.nijraj.expesnses.models;
 import android.util.Log;
 
 import com.orm.SugarRecord;
+import com.orm.dsl.Ignore;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +17,7 @@ import me.nijraj.expesnses.adapters.PersonsAdapter;
  */
 
 public class Expense extends SugarRecord<Expense> {
+
     public enum TYPE {
         SPENT, // as in spent on stuff
         ADDED, // received from somewhere
@@ -30,6 +32,9 @@ public class Expense extends SugarRecord<Expense> {
     private TYPE type;
     private String description;
     private long timestamp;
+
+    @Ignore
+    private boolean selected;
 
     public Expense(){ }
 
@@ -87,6 +92,30 @@ public class Expense extends SugarRecord<Expense> {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
+    public void toggleSelected() {
+        selected = !selected;
+    }
+
+    public static String getVerb(TYPE type) {
+        switch (type){
+            case BORROWED:
+                return "borrowed";
+            case LENT:
+                return "lent";
+            default:
+                return "";
+        }
+    }
+
 
     public static double getTotalOfType(TYPE type){
         List<Expense> expenses = Expense.listAll(Expense.class);

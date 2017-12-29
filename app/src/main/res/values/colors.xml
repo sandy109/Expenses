@@ -12,4 +12,5 @@
     <color name="colorGreen">#00633f</color>
     <color name="colorRedTransparent">#228B0000</color>
     <color name="colorGreenTransparent">#2200633f</color>
+    <color name="colorSelected">#4286f4</color>
 </resources>

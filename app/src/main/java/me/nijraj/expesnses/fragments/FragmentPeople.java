@@ -1,8 +1,5 @@
 package me.nijraj.expesnses.fragments;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,21 +7,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import me.nijraj.expesnses.R;
 import me.nijraj.expesnses.adapters.PersonsAdapter;
-import me.nijraj.expesnses.models.Expense;
 import me.nijraj.expesnses.models.Person;
 
 /**

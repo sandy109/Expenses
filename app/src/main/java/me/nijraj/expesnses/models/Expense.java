@@ -1,7 +1,5 @@
 package me.nijraj.expesnses.models;
 
-import android.util.Log;
-
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -9,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-
-import me.nijraj.expesnses.adapters.PersonsAdapter;
 
 /**
  * Created by buddha on 12/15/17.
@@ -57,18 +53,6 @@ public class Expense extends SugarRecord<Expense> {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     public double getAmount() {
         return amount;
     }
@@ -81,24 +65,12 @@ public class Expense extends SugarRecord<Expense> {
         return type;
     }
 
-    public void setType(TYPE type) {
-        this.type = type;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public boolean isSelected() {
         return selected;
-    }
-
-    public void setSelected(boolean selected) {
-        this.selected = selected;
     }
 
     public void toggleSelected() {

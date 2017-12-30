@@ -7,7 +7,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,16 +15,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.adapters.DashboardAdapter;
 import me.nijraj.expesnses.adapters.ExpensesAdapter;
-import me.nijraj.expesnses.adapters.PersonsAdapter;
 import me.nijraj.expesnses.models.Expense;
 import me.nijraj.expesnses.models.Person;
 

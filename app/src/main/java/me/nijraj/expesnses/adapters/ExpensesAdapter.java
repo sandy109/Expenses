@@ -57,7 +57,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ViewHo
 
         @Override
         public boolean onLongClick(View view) {
-            CharSequence[] menuItems = new CharSequence[] { "Select", "Delete" };
+            CharSequence[] menuItems = new CharSequence[] { "Delete" };
             AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
             builder.setTitle("Choose an action");
             builder.setItems(menuItems, new DialogInterface.OnClickListener() {
@@ -65,13 +65,20 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ViewHo
                 public void onClick(DialogInterface dialogInterface, int i) {
                     switch (i){
                         case 0:
-
+                            deleteItem(getAdapterPosition());
                             break;
                     }
                 }
             });
             builder.show();
             return true;
+        }
+
+        private void deleteItem(int adapterPosition) {
+            Expense e = adapter.data.get(adapterPosition);
+            e.delete();
+            adapter.data.remove(adapterPosition);
+            adapter.notifyItemRemoved(adapterPosition);
         }
 
         @Override
@@ -92,23 +99,20 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ViewHo
         Expense e = data.get(position);
         String type = "";
         switch (e.getType()) {
-            case LENT:
-                type = "Lent";
-                holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorGreenTransparent));
-                break;
             case BORROWED:
-                type = "Borrowed";
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRedTransparent));
-                break;
             case SPENT:
-                type = "Spent";
+                holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRedTransparent));
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorRedTransparent));
                 break;
+            case LENT:
+                holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorGreenTransparent));
             case ADDED:
-                type = "Received";
                 holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorGreenTransparent));
                 break;
         }
+
+        type = Expense.getVerb(e.getType());
         if(e.isSelected())
             holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorSelected));
         holder.textViewDescription.setText(e.getDescription());

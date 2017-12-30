@@ -111,6 +111,10 @@ public class Expense extends SugarRecord<Expense> {
                 return "borrowed";
             case LENT:
                 return "lent";
+            case SPENT:
+                return "spent";
+            case ADDED:
+                return "received";
             default:
                 return "";
         }

@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.models.Person;
 
 /**
  * Created by buddha on 12/15/17.

@@ -1,11 +1,8 @@
-package me.nijraj.expesnses.models;
-
-import android.util.Log;
+package me.nijraj.expenses.models;
 
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

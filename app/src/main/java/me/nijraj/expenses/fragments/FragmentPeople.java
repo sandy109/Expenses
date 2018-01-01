@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,9 +13,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.adapters.PersonsAdapter;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.adapters.PersonsAdapter;
+import me.nijraj.expenses.models.Person;
 
 /**
  * Created by buddha on 12/15/17.

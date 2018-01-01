@@ -1,12 +1,9 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,15 +13,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.utils.Database;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.utils.Database;
 
 import static android.app.Activity.RESULT_OK;
 

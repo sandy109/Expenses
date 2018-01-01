@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.adapters;
+package me.nijraj.expenses.adapters;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.fragments.FragmentExpenses;
-import me.nijraj.expesnses.models.Expense;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.fragments.FragmentExpenses;
+import me.nijraj.expenses.models.Expense;
 
 /**
  * Created by buddha on 12/15/17.

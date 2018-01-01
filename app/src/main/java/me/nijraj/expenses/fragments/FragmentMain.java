@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.adapters.DashboardAdapter;
-import me.nijraj.expesnses.adapters.PersonsAdapter;
-import me.nijraj.expesnses.models.Expense;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.adapters.DashboardAdapter;
+import me.nijraj.expenses.adapters.PersonsAdapter;
+import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.models.Person;
 
 
 /**

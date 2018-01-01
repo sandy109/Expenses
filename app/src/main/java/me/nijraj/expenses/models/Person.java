@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.models;
+package me.nijraj.expenses.models;
 
 import com.orm.SugarRecord;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import me.nijraj.expesnses.adapters.PersonsAdapter;
+import me.nijraj.expenses.adapters.PersonsAdapter;
 
 /**
  * Created by buddha on 12/15/17.

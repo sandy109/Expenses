@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.adapters;
+package me.nijraj.expenses.adapters;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.models.Expense;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.models.Expense;
 
 /**
  * Created by buddha on 12/15/17.

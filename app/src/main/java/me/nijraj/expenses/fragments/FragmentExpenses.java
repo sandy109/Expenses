@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.Locale;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.adapters.ExpensesAdapter;
-import me.nijraj.expesnses.models.Expense;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.adapters.ExpensesAdapter;
+import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.models.Person;
 
 
 /**

@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.activities;
+package me.nijraj.expenses.activities;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,11 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.fragments.FragmentAddExpense;
-import me.nijraj.expesnses.fragments.FragmentMain;
-import me.nijraj.expesnses.fragments.FragmentPeople;
-import me.nijraj.expesnses.fragments.FragmentSettings;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.fragments.FragmentAddExpense;
+import me.nijraj.expenses.fragments.FragmentMain;
+import me.nijraj.expenses.fragments.FragmentPeople;
+import me.nijraj.expenses.fragments.FragmentSettings;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

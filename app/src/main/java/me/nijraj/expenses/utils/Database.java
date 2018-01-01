@@ -1,25 +1,19 @@
-package me.nijraj.expesnses.utils;
+package me.nijraj.expenses.utils;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.orm.SugarApp;
-import com.orm.SugarConfig;
-import com.orm.SugarDb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import me.nijraj.expesnses.models.Expense;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.models.Person;
 
 /**
  * Created by buddha on 12/31/17.

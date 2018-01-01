@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.adapters;
+package me.nijraj.expenses.adapters;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.fragments.FragmentAddExpense;
-import me.nijraj.expesnses.fragments.FragmentExpenses;
-import me.nijraj.expesnses.models.Expense;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.fragments.FragmentAddExpense;
+import me.nijraj.expenses.fragments.FragmentExpenses;
+import me.nijraj.expenses.models.Expense;
 
 /**
  * Created by buddha on 12/15/17.
@@ -137,7 +137,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
                 public void onClick(DialogInterface dialogInterface, int i) {
                     switch (i){
                         case 0:
-                            me.nijraj.expesnses.models.Person p = me.nijraj.expesnses.models.Person.findById(me.nijraj.expesnses.models.Person.class, person.getId());
+                            me.nijraj.expenses.models.Person p = me.nijraj.expenses.models.Person.findById(me.nijraj.expenses.models.Person.class, person.getId());
                             p.delete();
                             adapter.data.remove(getAdapterPosition());
                             adapter.notifyItemRemoved(getAdapterPosition());

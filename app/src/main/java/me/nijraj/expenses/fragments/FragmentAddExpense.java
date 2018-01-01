@@ -1,4 +1,4 @@
-package me.nijraj.expesnses.fragments;
+package me.nijraj.expenses.fragments;
 
 import java.util.Calendar;
 import android.content.Context;
@@ -16,9 +16,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import me.nijraj.expesnses.R;
-import me.nijraj.expesnses.models.Expense;
-import me.nijraj.expesnses.models.Person;
+import me.nijraj.expenses.R;
+import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.models.Person;
 
 /**
  * Created by buddha on 12/15/17.

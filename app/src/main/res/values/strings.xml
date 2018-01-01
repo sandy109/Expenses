@@ -15,4 +15,14 @@
     <string name="view">View</string>
     <string name="zero_price">₹00.00</string>
     <string name="description">Description</string>
+    <string name="restore_confirmation">Restoring backup will remove all current records.</string>
+    <string name="want_continue">Continue?</string>
+    <string name="warning">Warning</string>
+    <string name="restore_error">Can not parse backup file</string>
+    <string name="restore_success">Backup restored successfully</string>
+    <string name="permission_denied">Can not save backup without permission</string>
+    <string name="clear_warning">All records will be deleted and you will not be able to restore unless you have a backup.</string>
+    <string name="cancel">Cancel</string>
+    <string name="do_continue">Continue</string>
+    <string name="database_cleared">Database reset successful</string>
 </resources>

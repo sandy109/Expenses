@@ -1,8 +1,15 @@
 package me.nijraj.expesnses.models;
 
+import android.util.Log;
+
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -12,7 +19,7 @@ import java.util.List;
  * Created by buddha on 12/15/17.
  */
 
-public class Expense extends SugarRecord<Expense> {
+public class Expense extends SugarRecord<Expense>  implements Serializable{
 
     public enum TYPE {
         SPENT, // as in spent on stuff
@@ -77,6 +84,10 @@ public class Expense extends SugarRecord<Expense> {
         selected = !selected;
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public static String getVerb(TYPE type) {
         switch (type){
             case BORROWED:
@@ -92,6 +103,20 @@ public class Expense extends SugarRecord<Expense> {
         }
     }
 
+    public static TYPE getType(String type){
+        switch (type){
+            case "LENT":
+                return TYPE.LENT;
+            case "BORROWED":
+                return TYPE.BORROWED;
+            case "ADDED":
+                return TYPE.ADDED;
+            case "SPENT":
+                return TYPE.SPENT;
+            default:
+                return TYPE.SPENT;
+        }
+    }
 
     public static double getTotalOfType(TYPE type){
         List<Expense> expenses = Expense.listAll(Expense.class);
@@ -124,5 +149,52 @@ public class Expense extends SugarRecord<Expense> {
         });
 
         return expenses;
+    }
+
+    public JSONObject toJSON(){
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("id", getId());
+            try {
+                obj.put("person", person.getId());
+            }catch(NullPointerException ex){
+                obj.put("person", "");
+            }
+            obj.put("amount", amount);
+            obj.put("type", type);
+            obj.put("description", description);
+            obj.put("timestamp", timestamp);
+        }catch (JSONException e){
+            return null;
+        }
+        return obj;
+    }
+
+    public static Expense fromJSON(JSONObject o) throws JSONException {
+        Expense e = new Expense(
+                o.getDouble("amount"),
+                Expense.getType(o.getString("type")),
+                o.getString("description"),
+                o.getLong("timestamp")
+        );
+        e.setId(o.getLong("id"));
+        try {
+            Person p = new Person();
+            p.setId(o.getLong("person"));
+            e.setPerson(p);
+        }catch (Exception ex){
+
+        }
+        return e;
+    }
+    public void saveRaw(){
+        Expense.executeQuery("INSERT INTO EXPENSE (ID, AMOUNT, TYPE, DESCRIPTION, TIMESTAMP, PERSON) VALUES (?, ?, ?, ?, ?, ?)",
+                getId().toString(),
+                getAmount() + "",
+                getType().toString(),
+                getDescription(),
+                getTimestamp() + "",
+                person == null ? "" : person.getId().toString()
+        );
     }
 }

@@ -53,13 +53,13 @@ public class FragmentMain extends Fragment implements View.OnClickListener {
             recyclerView.setVisibility(View.GONE);
             textViewNothing.setVisibility(View.VISIBLE);
         }
-        PersonsAdapter adapter = new PersonsAdapter(getFragmentManager(), persons);
+        PersonsAdapter adapter = new PersonsAdapter(getFragmentManager(), getActivity(), persons);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
         recyclerViewDashboard.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerViewDashboard.setAdapter(new DashboardAdapter(getFragmentManager(), loadDashboardItems()));
+        recyclerViewDashboard.setAdapter(new DashboardAdapter(getActivity(), getFragmentManager(), loadDashboardItems()));
 
         recyclerView.setNestedScrollingEnabled(false);
         recyclerViewDashboard.setNestedScrollingEnabled(false);

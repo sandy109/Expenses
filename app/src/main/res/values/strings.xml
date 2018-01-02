@@ -7,13 +7,21 @@
     <string name="add_person">Add Person</string>
     <string name="add_expense">Add an expense</string>
 
+    <!--Currencies-->
+    <string-array name="currencies">
+        <item>₹ (INR)</item>
+        <item>$ (USD)</item>
+        <item>£ (GBP)</item>
+        <item>€ (EUR)</item>
+    </string-array>
+
     <string name="nothing">Nothing to give, nothing to take</string>
 
-    <string name="app_name">Expesnses</string>
+    <string name="app_name">Expenses</string>
     <string name="borrow">Borrow</string>
     <string name="lend">Lend</string>
     <string name="view">View</string>
-    <string name="zero_price">₹00.00</string>
+    <string name="zero_price">00.00</string>
     <string name="description">Description</string>
     <string name="restore_confirmation">Restoring backup will remove all current records.</string>
     <string name="want_continue">Continue?</string>

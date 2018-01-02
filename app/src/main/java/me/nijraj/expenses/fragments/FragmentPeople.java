@@ -46,7 +46,7 @@ public class FragmentPeople extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_person);
         recyclerView.setNestedScrollingEnabled(false);
-        PersonsAdapter adapter = new PersonsAdapter(getFragmentManager(), Person.loadPeople(false));
+        PersonsAdapter adapter = new PersonsAdapter(getFragmentManager(), getActivity(), Person.loadPeople(false));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
         return view;

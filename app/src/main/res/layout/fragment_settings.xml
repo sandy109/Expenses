@@ -25,6 +25,11 @@
             android:textSize="18dp"
             android:textColor="@color/colorTextSecondary"
             android:text="Currency"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_currency"/>
     </LinearLayout>
 
     <LinearLayout

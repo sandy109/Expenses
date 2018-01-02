@@ -23,7 +23,6 @@ public class Database {
     public static File export(Context context, File dir){
         JSONObject db = Database.toJSON();
         if(db != null){
-            Log.d("XXXX", db.toString());
             try {
                 File outputFile = File.createTempFile("backup", ".json", dir);
                 outputFile.setWritable(true);

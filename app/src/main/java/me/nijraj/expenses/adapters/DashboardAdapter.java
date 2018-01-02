@@ -1,5 +1,6 @@
 package me.nijraj.expenses.adapters;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import me.nijraj.expenses.R;
 import me.nijraj.expenses.fragments.FragmentExpenses;
 import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.utils.Currency;
 
 /**
  * Created by buddha on 12/15/17.
@@ -24,13 +27,15 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
     List<DashboardItem> data;
     FragmentManager fragmentManager;
+    String currency;
 
     public DashboardAdapter(List<DashboardItem> data) {
         this.data = data;
     }
 
-    public DashboardAdapter(FragmentManager fragmentManager, List<DashboardItem> data) {
+    public DashboardAdapter(Activity activity, FragmentManager fragmentManager, List<DashboardItem> data) {
         this.fragmentManager = fragmentManager;
+        currency = Currency.getCurrency(activity);
         this.data = data;
     }
 
@@ -109,7 +114,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.textViewName.setText(data.get(position).getTitle());
         holder.adapter = this;
-        holder.textViewAmount.setText("₹" + data.get(position).getAmount());
+        holder.textViewAmount.setText(String.format(Locale.ENGLISH, "%s%.2f", currency, data.get(position).getAmount()));
     }
 
 

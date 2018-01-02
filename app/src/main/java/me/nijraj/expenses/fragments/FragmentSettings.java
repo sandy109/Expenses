@@ -18,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import me.nijraj.expenses.R;
+import me.nijraj.expenses.utils.Currency;
 import me.nijraj.expenses.utils.Database;
 
 import static android.app.Activity.RESULT_OK;
@@ -46,9 +50,32 @@ public class FragmentSettings extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         setHasOptionsMenu(false);
         getActivity().setTitle(R.string.settings);
+        final Spinner spinnerCurrency = view.findViewById(R.id.spinner_currency);
         Button buttonBackup = view.findViewById(R.id.button_backup);
         Button buttonRestore = view.findViewById(R.id.button_restore);
         Button buttonReset = view.findViewById(R.id.button_reset);
+
+        ArrayAdapter<CharSequence> currencies = ArrayAdapter.createFromResource(getContext(), R.array.currencies, android.R.layout.simple_spinner_dropdown_item);
+        currencies.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCurrency.setAdapter(currencies);
+        String currency = Currency.getCurrency(getActivity());
+        int index;
+        for(index = 0; index < currencies.getCount(); index++) {
+            if (currencies.getItem(index).charAt(0) == currency.charAt(0))
+                break;
+        }
+        spinnerCurrency.setSelection(index);
+        spinnerCurrency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Currency.updateCurrency(getActivity(), spinnerCurrency.getSelectedItem().toString().charAt(0) + "");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         buttonBackup.setOnClickListener(new View.OnClickListener() {
             @Override

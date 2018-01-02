@@ -1,5 +1,6 @@
 package me.nijraj.expenses.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v4.content.ContextCompat;
@@ -13,9 +14,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import me.nijraj.expenses.R;
 import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.utils.Currency;
 
 /**
  * Created by buddha on 12/15/17.
@@ -24,11 +27,13 @@ import me.nijraj.expenses.models.Expense;
 public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ViewHolder> {
 
     List<Expense> data;
+    String currency;
 
     public ExpensesAdapter() {
     }
 
-    public ExpensesAdapter(List<Expense> data){
+    public ExpensesAdapter(Activity activity, List<Expense> data){
+        currency = Currency.getCurrency(activity);
         this.data = data;
     }
 
@@ -109,7 +114,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.ViewHo
         if(e.isSelected())
             holder.linearLayout.setBackgroundColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorSelected));
         holder.textViewDescription.setText(e.getDescription());
-        holder.textViewAmount.setText("₹" + e.getAmount());
+        holder.textViewAmount.setText(String.format(Locale.ENGLISH, "%s%.2f", currency, e.getAmount()));
         holder.textViewType.setText(type);
         holder.adapter = this;
         Date date = new Date(e.getTimestamp());

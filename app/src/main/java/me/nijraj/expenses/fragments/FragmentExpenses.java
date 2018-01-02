@@ -49,7 +49,7 @@ public class FragmentExpenses extends Fragment {
         recyclerView.addItemDecoration(decoration);
         if(p != null) {
             getActivity().setTitle("Transactions with " + p.getName());
-            recyclerView.setAdapter(new ExpensesAdapter(Expense.getAllOfPerson(p)));
+            recyclerView.setAdapter(new ExpensesAdapter(getActivity(), Expense.getAllOfPerson(p)));
         }else if(type != null){
             switch (type){
                 case SPENT:
@@ -59,7 +59,7 @@ public class FragmentExpenses extends Fragment {
                     getActivity().setTitle("Received");
                     break;
             }
-            recyclerView.setAdapter(new ExpensesAdapter(Expense.getAllOfType(type)));
+            recyclerView.setAdapter(new ExpensesAdapter(getActivity(), Expense.getAllOfType(type)));
         }
         return view;
     }

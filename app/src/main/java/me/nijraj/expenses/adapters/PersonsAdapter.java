@@ -1,5 +1,6 @@
 package me.nijraj.expenses.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import me.nijraj.expenses.R;
 import me.nijraj.expenses.fragments.FragmentAddExpense;
 import me.nijraj.expenses.fragments.FragmentExpenses;
 import me.nijraj.expenses.models.Expense;
+import me.nijraj.expenses.utils.Currency;
 
 /**
  * Created by buddha on 12/15/17.
@@ -28,13 +31,11 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
 
     FragmentManager fragmentManager;
     ArrayList<PersonsAdapter.Person> data;
+    String currency;
 
-    public PersonsAdapter(FragmentManager fragmentManager) {
-        this.fragmentManager = fragmentManager;
-    }
-
-    public PersonsAdapter(FragmentManager fragmentManager, ArrayList<Person> data) {
+    public PersonsAdapter(FragmentManager fragmentManager, Activity activity, ArrayList<Person> data) {
         this.data = data;
+        currency = Currency.getCurrency(activity);
         this.fragmentManager = fragmentManager;
     }
 
@@ -165,7 +166,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.ViewHold
         holder.setPerson(data.get(position));
         holder.name.setText(data.get(position).getName());
         double amount = data.get(position).getAmount();
-        holder.amount.setText("₹" + Math.abs(amount));
+        holder.amount.setText(String.format(Locale.ENGLISH, "%s%.2f", currency, Math.abs(amount)));
         if(amount == 0)
             holder.amount.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.colorTextPrimary));
         else if(amount > 0)

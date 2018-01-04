@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import me.nijraj.expenses.R;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
+    private Runnable runOnDrawerClosed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.lend, R.string.borrow);
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                if(runOnDrawerClosed != null)
+                    runOnDrawerClosed.run();
+                runOnDrawerClosed = null;
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
         drawerToggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -59,30 +84,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment f = null;
+    public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
         drawerLayout.closeDrawers();
-
-        switch (item.getItemId()){
-            case R.id.action_dashboard:
-                f = new FragmentMain();
-                break;
-            case R.id.action_people:
-                f = new FragmentPeople();
-                break;
-            case R.id.action_settings:
-                f = new FragmentSettings();
-                break;
-            case R.id.action_accounts:
-                Toast.makeText(getBaseContext(), "Feature not yet implemented", Toast.LENGTH_SHORT).show();
-                return true;
-            default:
-                f = new FragmentMain();
-        }
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, f)
-                .commit();
+        runOnDrawerClosed = new Runnable() {
+             @Override
+             public void run() {
+                 Fragment f;
+                 switch (item.getItemId()){
+                     case R.id.action_dashboard:
+                         f = new FragmentMain();
+                         break;
+                     case R.id.action_people:
+                         f = new FragmentPeople();
+                         break;
+                     case R.id.action_settings:
+                         f = new FragmentSettings();
+                         break;
+                     case R.id.action_accounts:
+                         Toast.makeText(getBaseContext(), "Feature not yet implemented", Toast.LENGTH_SHORT).show();
+                         f = null;
+                     default:
+                         f = new FragmentMain();
+                 }
+                if(f != null)
+                     getSupportFragmentManager().beginTransaction()
+                         .replace(R.id.fragment_container, f)
+                         .commit();
+             }
+         };
         return true;
     }
 }

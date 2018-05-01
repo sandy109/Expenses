@@ -1,4 +1,4 @@
-package me.nijraj.expesnses;
+package me.nijraj.expenses;
 
 import org.junit.Test;
 

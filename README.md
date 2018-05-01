@@ -14,10 +14,13 @@ Expenses is an android app you can use to keep track of your money.
 
 ## Screenshots
 
-![Dashboard](screenshots/1.png)
-![2](screenshots/2.png)
-![3](screenshots/3.png)
-![4](screenshots/4.png)
+<img src="screenshots/1.png" width=300 align=left />
+<img src="screenshots/2.png" width=300 align=left />
+<img src="screenshots/3.png" width=300 align=left />
+<img src="screenshots/4.png" width=300 />
+
+
+
 
 ## License
 [Copyright (c) 2018 Nijraj Gelani](LICENSE)
